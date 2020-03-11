@@ -32,20 +32,19 @@ ustrends <- getTrends(23424977)
 
 #covid19
 
-feb28 <- searchTwitter('#covid19', n=10000, since='2020-02-28', until='2020-02-29')
-feb29 <- searchTwitter('#covid19', n=10000, since='2020-02-29', until='2020-03-01')
-mar1 <- searchTwitter('#covid19', n=10000, since='2020-03-01', until='2020-03-02')
-mar2 <- searchTwitter('#covid19', n=10000, since='2020-03-02', until='2020-03-03')
-mar3 <- searchTwitter('#covid19', n=10000, since='2020-03-03', until='2020-03-04')
-mar4 <- searchTwitter('#covid19', n=10000, since='2020-03-04', until='2020-03-05')
-mar5 <- searchTwitter('#covid19', n=10000, since='2020-03-05', until='2020-03-06')
-mar6 <- searchTwitter('#covid19', n=10000, since='2020-03-06', until='2020-03-07')
-mar7 <- searchTwitter('#covid19', n=10000, since='2020-03-07', until='2020-03-08')
-mar8 <- searchTwitter('#covid19', n=10000, since='2020-03-08', until='2020-03-09')
-
+mar1 <- searchTwitter('#covid19', n=3000, since='2020-03-01', until='2020-03-02')
+mar2 <- searchTwitter('#covid19', n=3000, since='2020-03-02', until='2020-03-03')
+mar3 <- searchTwitter('#covid19', n=3000, since='2020-03-03', until='2020-03-04')
+mar4 <- searchTwitter('#covid19', n=3000, since='2020-03-04', until='2020-03-05')
+mar5 <- searchTwitter('#covid19', n=3000, since='2020-03-05', until='2020-03-06')
+mar6 <- searchTwitter('#covid19', n=3000, since='2020-03-06', until='2020-03-07')
+mar7 <- searchTwitter('#covid19', n=3000, since='2020-03-07', until='2020-03-08')
+mar8 <- searchTwitter('#covid19', n=3000, since='2020-03-08', until='2020-03-09')
+mar9 <- searchTwitter('#covid19', n=3000, since='2020-03-09', until='2020-03-10')
+mar10 <- searchTwitter('#covid19', n=3000, since='2020-03-10', until='2020-03-11')
 
 #Combine Lists
-covid19 <- c(feb28, feb29, mar1, mar2, mar3, mar4, mar5, mar6, mar7)
+covid19 <- c(mar1, mar2, mar3, mar4, mar5, mar6, mar7, mar8, mar9, mar10)
 
 head(covid19)
 
@@ -122,4 +121,4 @@ covid19tidy %>%
          iswho = str_count(str_to_sentence(text), c("nih", "national institutes of health"))) -> covid19tidy
 
 #Save to CSV
-write.csv(covid19tidy, file = "covid19tidy.csv")
+write.csv(covid19tidy, file = "covid19mar110.csv")
