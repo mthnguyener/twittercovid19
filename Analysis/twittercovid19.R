@@ -12,6 +12,7 @@ library(usethis)
 library(twitteR)
 library(stringr)
 library(lubridate)
+library(tree)
 
 key_set("key")
 key_set("secret")
@@ -117,8 +118,62 @@ covid19tidy %>%
          isemergency = str_count(text, "emergency"),
          isdeaths = str_count(str_to_sentence(text), c("dead","death")),
          iswho = str_count(str_to_sentence(text), c("who", "wolrd health organization")),
-         isnih = str_count(str_to_sentence(text), c("cdc", "centers for disease control")),
-         iswho = str_count(str_to_sentence(text), c("nih", "national institutes of health"))) -> covid19tidy
+         iscdc = str_count(str_to_sentence(text), c("cdc", "centers for disease control")),
+         isnih = str_count(str_to_sentence(text), c("nih", "national institutes of health")),
+         isdisease = str_count(str_to_sentence(text), "disease"), 
+         isquarantine = str_count(str_to_sentence(text), "quarantine"), 
+         isrecover = str_count(str_to_sentence(text), "recover"),
+         isban = str_count(str_to_sentence(text), "ban"), 
+         iscoronavirus = str_count(str_to_sentence(text), "coronavirus"),
+         iscovid19 = str_count(str_to_sentence(text), "covid19"), 
+         iswash = str_count(str_to_sentence(text), "wash"), 
+         isracist = str_count(str_to_sentence(text), c("racist","racism")), 
+         isasian = str_count(str_to_sentence(text), "asian"), 
+         ischinese = str_count(str_to_sentence(text), c("chinese", "china")), 
+         isinfectious = str_count(str_to_sentence(text), c("infectious", "infections"))) -> covid19tidy
 
 #Save to CSV
 write.csv(covid19tidy, file = "covid19mar110.csv")
+
+#Ordinary Least Squares (OLS) - retweets and favorites total
+retweets.ols <- lm(retweets ~ length + favorites + ishealth + ispandemic + 
+                  isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
+                  isdisease + isquarantine + isrecover + isban + iscoronavirus + 
+                  iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
+                data = covid19tidy)
+summary(retweets.ols)
+
+favorites.ols <- lm(favorites ~ length + retweets + ishealth + ispandemic + 
+                      isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
+                      isdisease + isquarantine + isrecover + isban + iscoronavirus + 
+                      iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
+                    data = covid19tidy)
+summary(favorites.ols)
+
+#Generalized Linear Models (GLM) - is it a retweet?
+isretweeted.glm <- glm(isretweeted ~ length + favorites + retweets + ishealth + ispandemic + 
+                         isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
+                         isdisease + isquarantine + isrecover + isban + iscoronavirus + 
+                         iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
+                       data = covid19tidy)
+summary(isretweeted.glm)
+
+#Regression Tree - Retweets total
+tree.retweets <- tree(retweets ~ length + favorites + ishealth + ispandemic + 
+                        isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
+                        isdisease + isquarantine + isrecover + isban + iscoronavirus + 
+                        iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
+                      data = covid19tidy)
+summary(tree.retweets)
+plot(tree.retweets)
+text(tree.retweets)
+
+#Classification Tree - Is it a retweet?
+tree.isretweeted <- tree(isretweeted ~ length + favorites + retweets + ishealth + ispandemic + 
+                        isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
+                        isdisease + isquarantine + isrecover + isban + iscoronavirus + 
+                        iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
+                      data = covid19tidy)
+summary(tree.isretweeted)
+plot(tree.isretweeted)
+text(tree.isretweeted)
