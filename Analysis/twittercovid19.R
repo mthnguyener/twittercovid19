@@ -31,7 +31,7 @@ avail_trends <- availableTrendLocations()
 globaltrends <- getTrends(1)
 ustrends <- getTrends(23424977)
 
-#covid19
+#Pull covid19 Tweets
 
 mar1 <- searchTwitter('#covid19', n=3000, since='2020-03-01', until='2020-03-02')
 mar2 <- searchTwitter('#covid19', n=3000, since='2020-03-02', until='2020-03-03')
