@@ -97,6 +97,8 @@ covid19tidy %>%
 #Read current CSV
 covid19current <- read.csv("C:/Users/mthng/OneDrive/Documents/Personal/School/3 Spring 2020/Predictive Analytics (ITEC 621-002)/Project/twittercovid19/WIP/twittercovid19/Data/covid19march.csv")
 
+summary(covid19current)
+
 covid19current %>%
   mutate(date = as_datetime(date),
          name = as.character(name),
