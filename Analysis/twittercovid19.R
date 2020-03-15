@@ -1,28 +1,6 @@
-# Dummy file for ensuring directory is added
 # Working file
 # John Hopkins COVID19 DATA:
 # https://github.com/CSSEGISandData/COVID-19
-
-library(tidyverse)
-library(keyring)
-library(tibble)
-library(purrr)
-library(devtools)
-library(usethis)
-library(twitteR)
-library(stringr)
-library(lubridate)
-library(tree)
-
-key_set("key")
-key_set("secret")
-key_set("atoken")
-key_set("asecret")
-
-key <- key_get("key")
-secret <- key_get("secret")
-atoken <- key_get("atoken")
-asecret <- key_get("asecret")
 
 setup_twitter_oauth(key, secret, atoken, asecret)
 
@@ -43,9 +21,11 @@ mar7 <- searchTwitter('#covid19', n=3000, since='2020-03-07', until='2020-03-08'
 mar8 <- searchTwitter('#covid19', n=3000, since='2020-03-08', until='2020-03-09')
 mar9 <- searchTwitter('#covid19', n=3000, since='2020-03-09', until='2020-03-10')
 mar10 <- searchTwitter('#covid19', n=3000, since='2020-03-10', until='2020-03-11')
+mar11 <- searchTwitter('#covid19', n=3000, since='2020-03-11', until='2020-03-12')
+mar12 <- searchTwitter('#covid19', n=3000, since='2020-03-12', until='2020-03-13')
 
 #Combine Lists
-covid19 <- c(mar1, mar2, mar3, mar4, mar5, mar6, mar7, mar8, mar9, mar10)
+covid19 <- c(mar1, mar2, mar3, mar4, mar5, mar6, mar7, mar8, mar9, mar10, mar11, mar12)
 
 head(covid19)
 
@@ -132,8 +112,12 @@ covid19tidy %>%
          ischinese = str_count(str_to_sentence(text), c("chinese", "china")), 
          isinfectious = str_count(str_to_sentence(text), c("infectious", "infections"))) -> covid19tidy
 
+covid19tidy %>%
+  mutate(sources = as.factor(sources)) ->
+  covid19tidy
+
 #Save to CSV
-write.csv(covid19tidy, file = "covid19mar110.csv")
+write.csv(covid19tidy, file = "covid19march.csv")
 
 #Ordinary Least Squares (OLS) - retweets and favorites total
 retweets.ols <- lm(retweets ~ length + favorites + ishealth + ispandemic + 
