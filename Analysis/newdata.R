@@ -107,7 +107,7 @@ covid19current %>%
   covid19current
 
 #Combine
-covid19march <- rbind(covid19current, covid19tidy)
+covid19current <- rbind(covid19current, covid19tidy)
 
 #Save to CSV
-write.csv(covid19march, file = "covid19march.csv")
+write.csv(covid19current, file = "covid19march.csv")
