@@ -109,5 +109,23 @@ covid19current %>%
 #Combine
 covid19current <- rbind(covid19current, covid19tidy)
 
+#Add Counts (columns 4-15)
+test <- covid19current %>%
+  mutate(date = ymd_hms(date))
+
+test <- covid19current %>%
+  mutate(china = case_when(day(date) == 1 ~ confirmed.total[[1,4]],
+                           day(date) == 2 ~ confirmed.total[[1,5]],
+                           day(date) == 3 ~ confirmed.total[[1,6]],
+                           day(date) == 4 ~ confirmed.total[[1,7]],
+                           day(date) == 5 ~ confirmed.total[[1,8]],
+                           day(date) == 6 ~ confirmed.total[[1,9]],
+                           day(date) == 7 ~ confirmed.total[[1,10]],
+                           day(date) == 8 ~ confirmed.total[[1,11]],
+                           day(date) == 9 ~ confirmed.total[[1,12]],
+                           day(date) == 10 ~ confirmed.total[[1,13]],
+                           day(date) == 11 ~ confirmed.total[[1,14]],
+                           day(date) == 12 ~ confirmed.total[[1,15]]))
+           
 #Save to CSV
 write.csv(covid19current, file = "covid19march.csv")

@@ -8,6 +8,7 @@ library(twitteR)
 library(stringr)
 library(lubridate)
 library(tree)
+library(dplyr)
 
 # John Hopkins COVID19 DATA:
 # https://github.com/CSSEGISandData/COVID-19
