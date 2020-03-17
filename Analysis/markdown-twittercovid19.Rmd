@@ -28,11 +28,12 @@ library(tree)
 # https://github.com/CSSEGISandData/COVID-19
 
 #Read cleaned covid19 tweet data into R (setwd first)
-covid19tidy <- read.csv("C:/Users/mnguyen/OneDrive/Documents/Personal/School/3 Spring 2020/Predictive Analytics (ITEC 621-002)/Project/twittercovid19/WIP/twittercovid19/Data/covid19mar110.csv")
+covid19current <- read.csv("C:/Users/mthng/OneDrive/Documents/Personal/School/3 Spring 2020/Predictive Analytics (ITEC 621-002)/Project/twittercovid19/WIP/twittercovid19/Data/covid19march.csv")
 ```
 
 ## Word Mining
-```{r}
+```{r, eval=FALSE}
+#Was used to create "word" count variables
 covid19tidy %>%
   mutate(ishealth = str_count(text, "health"),
          ispandemic = str_count(text, "pandemic"),
@@ -57,45 +58,59 @@ covid19tidy %>%
 
 ##OLS, GLM, Regression Trees, and Classification Trees
 ```{r}
+#USE covid19current
 #Ordinary Least Squares (OLS) - retweets and favorites total
 retweets.ols <- lm(retweets ~ length + favorites + ishealth + ispandemic + 
                   isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
                   isdisease + isquarantine + isrecover + isban + iscoronavirus + 
-                  iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
-                data = covid19tidy)
+                  iscovid19 + iswash + isracist + isasian + ischinese + isinfectious +
+                  ch.confirmed + it.confirmed + ot.confirmed + us.confirmed +
+                  ch.deaths + it.deaths + ot.deaths + us.deaths, 
+                data = covid19current)
 summary(retweets.ols)
 
 favorites.ols <- lm(favorites ~ length + retweets + ishealth + ispandemic + 
                       isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
                       isdisease + isquarantine + isrecover + isban + iscoronavirus + 
-                      iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
-                    data = covid19tidy)
+                      iscovid19 + iswash + isracist + isasian + ischinese + 
+                      isinfectious + ch.confirmed + it.confirmed + ot.confirmed +
+                      us.confirmed + ch.deaths + it.deaths + ot.deaths + us.deaths, 
+                    data = covid19current)
 summary(favorites.ols)
 
 #Generalized Linear Models (GLM) - is it a retweet?
-isretweeted.glm <- glm(isretweeted ~ length + favorites + retweets + ishealth + ispandemic + 
-                         isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
-                         isdisease + isquarantine + isrecover + isban + iscoronavirus + 
-                         iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
-                       data = covid19tidy)
+isretweeted.glm <- glm(isretweeted ~ length + favorites + retweets + ishealth +
+                         ispandemic + isvirus + isemergency + isdeaths + iswho + 
+                         iscdc + isnih + isdisease + isquarantine + isrecover + 
+                         isban + iscoronavirus + iscovid19 + iswash + isracist + 
+                         isasian + ischinese + isinfectious + ch.confirmed +
+                         it.confirmed + ot.confirmed + us.confirmed + ch.deaths +
+                         it.deaths + ot.deaths + us.deaths, 
+                       data = covid19current)
 summary(isretweeted.glm)
 
 #Regression Tree - Retweets total
 tree.retweets <- tree(retweets ~ length + favorites + ishealth + ispandemic + 
                         isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
                         isdisease + isquarantine + isrecover + isban + iscoronavirus + 
-                        iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
-                      data = covid19tidy)
+                        iscovid19 + iswash + isracist + isasian + ischinese + 
+                        isinfectious + 
+                        ch.confirmed + it.confirmed + ot.confirmed + us.confirmed +
+                        ch.deaths + it.deaths + ot.deaths + us.deaths, 
+                      data = covid19current)
 summary(tree.retweets)
 plot(tree.retweets)
 text(tree.retweets)
 
 #Classification Tree - Is it a retweet?
-tree.isretweeted <- tree(isretweeted ~ length + favorites + retweets + ishealth + ispandemic + 
-                        isvirus + isemergency + isdeaths + iswho + iscdc + isnih + 
-                        isdisease + isquarantine + isrecover + isban + iscoronavirus + 
-                        iscovid19 + iswash + isracist + isasian + ischinese + isinfectious, 
-                      data = covid19tidy)
+tree.isretweeted <- tree(isretweeted ~ length + favorites + retweets + ishealth + 
+                           ispandemic + isvirus + isemergency + isdeaths + iswho + 
+                           iscdc + isnih + isdisease + isquarantine + isrecover + 
+                           isban + iscoronavirus + iscovid19 + iswash + isracist + 
+                           isasian + ischinese + isinfectious + ch.confirmed + 
+                           it.confirmed + ot.confirmed + us.confirmed + ch.deaths +
+                           it.deaths + ot.deaths + us.deaths, 
+                      data = covid19current)
 summary(tree.isretweeted)
 plot(tree.isretweeted)
 text(tree.isretweeted)

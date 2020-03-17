@@ -6,7 +6,7 @@ deaths.total <- aggregate(. ~ Country.Region, deaths, sum) %>%
   select(-Province.State, -Lat, -Long)
 
 deaths.total$Country.Region = replace(x = deaths.total$Country.Region, 
-                                  list =  !deaths.total$Country.Region %in% c('China', 'US', 'Italy'), values =  'others')
+                                  list =  !deaths.total$Country.Region %in% c('China', 'US', 'Italy'), values =  'Others')
 
 deaths.total %>%
   group_by(Country.Region) %>%
@@ -24,7 +24,7 @@ confirmed.total <- aggregate(. ~ Country.Region, confirmed, sum) %>%
   select(-Province.State, -Lat, -Long)
 
 confirmed.total$Country.Region = replace(x = confirmed.total$Country.Region, 
-                                      list =  !confirmed.total$Country.Region %in% c('China', 'US', 'Italy'), values =  'others')
+                                      list =  !confirmed.total$Country.Region %in% c('China', 'US', 'Italy'), values =  'Others')
 
 confirmed.total %>%
   group_by(Country.Region) %>%
@@ -42,7 +42,7 @@ recovered.total <- aggregate(. ~ Country.Region, recovered, sum) %>%
   select(-Province.State, -Lat, -Long)
 
 recovered.total$Country.Region = replace(x = recovered.total$Country.Region, 
-                                         list =  !recovered.total$Country.Region %in% c('China', 'US', 'Italy'), values =  'others')
+                                         list =  !recovered.total$Country.Region %in% c('China', 'US', 'Italy'), values =  'Others')
 
 recovered.total %>%
   group_by(Country.Region) %>%

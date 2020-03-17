@@ -12,6 +12,7 @@ library(dplyr)
 
 # John Hopkins COVID19 DATA:
 # https://github.com/CSSEGISandData/COVID-19
+# https://github.com/CSSEGISandData/COVID-19.git
 
 key_set("key")
 key_set("secret")

@@ -109,23 +109,139 @@ covid19current %>%
 #Combine
 covid19current <- rbind(covid19current, covid19tidy)
 
-#Add Counts (columns 4-15)
-test <- covid19current %>%
+#Add Confirmed Counts for China, Italy, Others and US
+covid19current <- covid19current %>%
   mutate(date = ymd_hms(date))
 
-test <- covid19current %>%
-  mutate(china = case_when(day(date) == 1 ~ confirmed.total[[1,4]],
-                           day(date) == 2 ~ confirmed.total[[1,5]],
-                           day(date) == 3 ~ confirmed.total[[1,6]],
-                           day(date) == 4 ~ confirmed.total[[1,7]],
-                           day(date) == 5 ~ confirmed.total[[1,8]],
-                           day(date) == 6 ~ confirmed.total[[1,9]],
-                           day(date) == 7 ~ confirmed.total[[1,10]],
-                           day(date) == 8 ~ confirmed.total[[1,11]],
-                           day(date) == 9 ~ confirmed.total[[1,12]],
-                           day(date) == 10 ~ confirmed.total[[1,13]],
-                           day(date) == 11 ~ confirmed.total[[1,14]],
-                           day(date) == 12 ~ confirmed.total[[1,15]]))
+covid19current <- covid19current %>%
+  mutate(ch.confirmed = case_when(day(date) == 1 ~ confirmed.total[[1,2]],
+                           day(date) == 2 ~ confirmed.total[[1,3]],
+                           day(date) == 3 ~ confirmed.total[[1,4]],
+                           day(date) == 4 ~ confirmed.total[[1,5]],
+                           day(date) == 5 ~ confirmed.total[[1,6]],
+                           day(date) == 6 ~ confirmed.total[[1,7]],
+                           day(date) == 7 ~ confirmed.total[[1,8]],
+                           day(date) == 8 ~ confirmed.total[[1,9]],
+                           day(date) == 9 ~ confirmed.total[[1,10]],
+                           day(date) == 10 ~ confirmed.total[[1,11]],
+                           day(date) == 11 ~ confirmed.total[[1,12]],
+                           day(date) == 12 ~ confirmed.total[[1,13]],
+                           day(date) == 13 ~ confirmed.total[[1,14]],
+                           day(date) == 14 ~ confirmed.total[[1,15]]))
+
+covid19current <- covid19current %>%
+  mutate(it.confirmed = case_when(day(date) == 1 ~ confirmed.total[[2,2]],
+                                  day(date) == 2 ~ confirmed.total[[2,3]],
+                                  day(date) == 3 ~ confirmed.total[[2,4]],
+                                  day(date) == 4 ~ confirmed.total[[2,5]],
+                                  day(date) == 5 ~ confirmed.total[[2,6]],
+                                  day(date) == 6 ~ confirmed.total[[2,7]],
+                                  day(date) == 7 ~ confirmed.total[[2,8]],
+                                  day(date) == 8 ~ confirmed.total[[2,9]],
+                                  day(date) == 9 ~ confirmed.total[[2,10]],
+                                  day(date) == 10 ~ confirmed.total[[2,11]],
+                                  day(date) == 11 ~ confirmed.total[[2,12]],
+                                  day(date) == 12 ~ confirmed.total[[2,13]],
+                                  day(date) == 13 ~ confirmed.total[[2,14]],
+                                  day(date) == 14 ~ confirmed.total[[2,15]]))
+
+covid19current <- covid19current %>%
+  mutate(ot.confirmed = case_when(day(date) == 1 ~ confirmed.total[[3,2]],
+                                  day(date) == 2 ~ confirmed.total[[3,3]],
+                                  day(date) == 3 ~ confirmed.total[[3,4]],
+                                  day(date) == 4 ~ confirmed.total[[3,5]],
+                                  day(date) == 5 ~ confirmed.total[[3,6]],
+                                  day(date) == 6 ~ confirmed.total[[3,7]],
+                                  day(date) == 7 ~ confirmed.total[[3,8]],
+                                  day(date) == 8 ~ confirmed.total[[3,9]],
+                                  day(date) == 9 ~ confirmed.total[[3,10]],
+                                  day(date) == 10 ~ confirmed.total[[3,11]],
+                                  day(date) == 11 ~ confirmed.total[[3,12]],
+                                  day(date) == 12 ~ confirmed.total[[3,13]],
+                                  day(date) == 13 ~ confirmed.total[[3,14]],
+                                  day(date) == 14 ~ confirmed.total[[3,15]]))
+
+covid19current <- covid19current %>%
+  mutate(us.confirmed = case_when(day(date) == 1 ~ confirmed.total[[4,2]],
+                                  day(date) == 2 ~ confirmed.total[[4,3]],
+                                  day(date) == 3 ~ confirmed.total[[4,4]],
+                                  day(date) == 4 ~ confirmed.total[[4,5]],
+                                  day(date) == 5 ~ confirmed.total[[4,6]],
+                                  day(date) == 6 ~ confirmed.total[[4,7]],
+                                  day(date) == 7 ~ confirmed.total[[4,8]],
+                                  day(date) == 8 ~ confirmed.total[[4,9]],
+                                  day(date) == 9 ~ confirmed.total[[4,10]],
+                                  day(date) == 10 ~ confirmed.total[[4,11]],
+                                  day(date) == 11 ~ confirmed.total[[4,12]],
+                                  day(date) == 12 ~ confirmed.total[[4,13]],
+                                  day(date) == 13 ~ confirmed.total[[4,14]],
+                                  day(date) == 14 ~ confirmed.total[[4,15]]))
+
+#Add Death Counts for China, Italy, Others and US
+covid19current <- covid19current %>%
+  mutate(ch.deaths = case_when(day(date) == 1 ~ deaths.total[[1,2]],
+                                  day(date) == 2 ~ deaths.total[[1,3]],
+                                  day(date) == 3 ~ deaths.total[[1,4]],
+                                  day(date) == 4 ~ deaths.total[[1,5]],
+                                  day(date) == 5 ~ deaths.total[[1,6]],
+                                  day(date) == 6 ~ deaths.total[[1,7]],
+                                  day(date) == 7 ~ deaths.total[[1,8]],
+                                  day(date) == 8 ~ deaths.total[[1,9]],
+                                  day(date) == 9 ~ deaths.total[[1,10]],
+                                  day(date) == 10 ~ deaths.total[[1,11]],
+                                  day(date) == 11 ~ deaths.total[[1,12]],
+                                  day(date) == 12 ~ deaths.total[[1,13]],
+                                  day(date) == 13 ~ deaths.total[[1,14]],
+                                  day(date) == 14 ~ deaths.total[[1,15]]))
+
+covid19current <- covid19current %>%
+  mutate(it.deaths = case_when(day(date) == 1 ~ deaths.total[[2,2]],
+                                  day(date) == 2 ~ deaths.total[[2,3]],
+                                  day(date) == 3 ~ deaths.total[[2,4]],
+                                  day(date) == 4 ~ deaths.total[[2,5]],
+                                  day(date) == 5 ~ deaths.total[[2,6]],
+                                  day(date) == 6 ~ deaths.total[[2,7]],
+                                  day(date) == 7 ~ deaths.total[[2,8]],
+                                  day(date) == 8 ~ deaths.total[[2,9]],
+                                  day(date) == 9 ~ deaths.total[[2,10]],
+                                  day(date) == 10 ~ deaths.total[[2,11]],
+                                  day(date) == 11 ~ deaths.total[[2,12]],
+                                  day(date) == 12 ~ deaths.total[[2,13]],
+                                  day(date) == 13 ~ deaths.total[[2,14]],
+                                  day(date) == 14 ~ deaths.total[[2,15]]))
+
+covid19current <- covid19current %>%
+  mutate(ot.deaths = case_when(day(date) == 1 ~ deaths.total[[3,2]],
+                                  day(date) == 2 ~ deaths.total[[3,3]],
+                                  day(date) == 3 ~ deaths.total[[3,4]],
+                                  day(date) == 4 ~ deaths.total[[3,5]],
+                                  day(date) == 5 ~ deaths.total[[3,6]],
+                                  day(date) == 6 ~ deaths.total[[3,7]],
+                                  day(date) == 7 ~ deaths.total[[3,8]],
+                                  day(date) == 8 ~ deaths.total[[3,9]],
+                                  day(date) == 9 ~ deaths.total[[3,10]],
+                                  day(date) == 10 ~ deaths.total[[3,11]],
+                                  day(date) == 11 ~ deaths.total[[3,12]],
+                                  day(date) == 12 ~ deaths.total[[3,13]],
+                                  day(date) == 13 ~ deaths.total[[3,14]],
+                                  day(date) == 14 ~ deaths.total[[3,15]]))
+
+covid19current <- covid19current %>%
+  mutate(us.deaths= case_when(day(date) == 1 ~ deaths.total[[4,2]],
+                                  day(date) == 2 ~ deaths.total[[4,3]],
+                                  day(date) == 3 ~ deaths.total[[4,4]],
+                                  day(date) == 4 ~ deaths.total[[4,5]],
+                                  day(date) == 5 ~ deaths.total[[4,6]],
+                                  day(date) == 6 ~ deaths.total[[4,7]],
+                                  day(date) == 7 ~ deaths.total[[4,8]],
+                                  day(date) == 8 ~ deaths.total[[4,9]],
+                                  day(date) == 9 ~ deaths.total[[4,10]],
+                                  day(date) == 10 ~ deaths.total[[4,11]],
+                                  day(date) == 11 ~ deaths.total[[4,12]],
+                                  day(date) == 12 ~ deaths.total[[4,13]],
+                                  day(date) == 13 ~ deaths.total[[4,14]],
+                                  day(date) == 14 ~ deaths.total[[4,15]]))
+
            
 #Save to CSV
 write.csv(covid19current, file = "covid19march.csv")
