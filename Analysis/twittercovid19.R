@@ -90,14 +90,14 @@ covid19tidy %>%
          text = str_replace_all(text, "RT\\s+", "")) %>%
   select(date, name, sources, isretweeted, text, length, favorites, retweets) -> covid19tidy
 
-#word mining
+#text mining
 covid19tidy %>%
-  mutate(ishealth = str_count(text, "health"),
-         ispandemic = str_count(text, "pandemic"),
-         isvirus = str_count(text, "virus"),
-         isemergency = str_count(text, "emergency"),
+  mutate(ishealth = str_count(str_to_sentence(text), "health"),
+         ispandemic = str_count(str_to_sentence(text), "pandemic"),
+         isvirus = str_count(str_to_sentence(text), "virus"),
+         isemergency = str_count(str_to_sentence(text), "emergency"),
          isdeaths = str_count(str_to_sentence(text), c("dead","death")),
-         iswho = str_count(str_to_sentence(text), c("who", "wolrd health organization")),
+         iswho = str_count(str_to_sentence(text), c("who", "world health organization")),
          iscdc = str_count(str_to_sentence(text), c("cdc", "centers for disease control")),
          isnih = str_count(str_to_sentence(text), c("nih", "national institutes of health")),
          isdisease = str_count(str_to_sentence(text), "disease"), 

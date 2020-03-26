@@ -75,7 +75,7 @@ covid19tidy %>%
          isvirus = str_count(text, "virus"),
          isemergency = str_count(text, "emergency"),
          isdeaths = str_count(str_to_sentence(text), c("dead","death")),
-         iswho = str_count(str_to_sentence(text), c("who", "wolrd health organization")),
+         iswho = str_count(str_to_sentence(text), c("who", "world health organization")),
          iscdc = str_count(str_to_sentence(text), c("cdc", "centers for disease control")),
          isnih = str_count(str_to_sentence(text), c("nih", "national institutes of health")),
          isdisease = str_count(str_to_sentence(text), "disease"), 
