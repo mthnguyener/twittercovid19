@@ -4,13 +4,13 @@
 
 <!-- badges: end -->
 
-The goal of this project is to gather covid19 related tweets and analyze how retweets and favorites are impacted.
+The goal of this project is to gather covid19 related tweets and analyze how retweets. Essentially, understand strategy for spreading critical crisis news.
 
 Business Understanding:
-Are retweets and favorites affected by which words are being used in the tweet? Can we increase retweets and favorites by using key words?
-Our hypothesis is that words implying fear will have a positive impact on reteweets and favorites since people typically react to fear.
+Are retweets affected by which words are being used in the tweet? Can we increase retweets (share critical news faster) by using key words?
+Our hypothesis is that words implying fear will have a positive impact on reteweets and reachability since people typically react to fear.
 
-Data Understanding:
+Initial Data Understanding:
 datecreated - date tweet was created
 screenname - the screen name of the person posting the tweet
 tweettext - the content of the tweet
