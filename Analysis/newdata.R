@@ -68,7 +68,7 @@ covid19tidy %>%
          text = str_replace_all(text, "RT\\s+", "")) %>%
   select(date, name, sources, isretweeted, text, length, favorites, retweets) -> covid19tidy
 
-#word mining
+#text mining
 covid19tidy %>%
   mutate(ishealth = str_count(text, "health"),
          ispandemic = str_count(text, "pandemic"),
