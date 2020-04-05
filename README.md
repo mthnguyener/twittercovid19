@@ -19,7 +19,7 @@ retweetcount - the number of retweets
 statussources - device used to post the tweet
 
 Data Preparation:
-Covid19 data from feb 29, 2020 to mar 8, 2020 were pulled from Twitter. 
+Covid19 data from mar 1, 2020 to mar 14, 2020 were pulled from Twitter. 
 
 Step 1) Combine the selected dates into one big list, map desired variables (created,  screenName, favoriteCount, retweetCount), pull StatusSource, pull tweet content and clean the data.
 Step 2) Identify retweets and clean tweet text. 
