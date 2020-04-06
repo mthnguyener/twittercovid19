@@ -1,14 +1,14 @@
 library(tidyverse)
-library(keyring)
 library(tibble)
 library(purrr)
-library(devtools)
-library(usethis)
-library(twitteR)
 library(stringr)
 library(lubridate)
 library(tree)
 library(dplyr)
+library(keyring)
+library(devtools)
+library(usethis)
+library(twitteR)
 
 # John Hopkins COVID19 DATA:
 # https://github.com/CSSEGISandData/COVID-19
