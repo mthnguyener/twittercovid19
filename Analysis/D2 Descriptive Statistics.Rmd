@@ -1,0 +1,48 @@
+---
+title: "Descriptive Statistics"
+author: "Reina Villanueva-Unger"
+date: "4/4/2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Summary Statistics
+
+```{r summary statistics}
+covid <- read.csv("covid19march.csv")
+covid.new <- covid[,-7]
+covid.new <- covid.new[,-4]
+covid.new <- covid.new[,-3]
+summary(covid.new)
+library(psych)
+describe(covid.new)
+```
+
+## Normality Plots
+
+
+```{r normality}
+par(mfrow=c(1,2))
+hist(covid.new$retweets, main="Histogram", xlab="Retweets")
+qqnorm(covid.new$retweets, main="QQ Plot")
+qqline(covid.new$retweets)
+par(mfrow=c(1,1))
+```
+
+## ANOVA
+
+```{r anova}
+covid.aov <- aov(retweets~., data = covid.new)
+summary(covid.aov)
+boxplot(retweets~us.deaths, data = covid.new)
+boxplot(retweets~iscovid19, data = covid.new)
+boxplot(retweets~ischinese, data = covid.new)
+boxplot(retweets~iscoronavirus, data = covid.new)
+boxplot(ch.deaths~iscovid19, data = covid.new)
+boxplot(ch.confirmed~iscovid19, data = covid.new)
+boxplot(us.deaths~iscovid19, data = covid.new)
+boxplot(us.confirmed~iscovid19, data = covid.new)
+```

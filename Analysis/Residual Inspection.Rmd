@@ -1,0 +1,65 @@
+---
+title: "Residuals"
+author: "Reina Villanueva-Unger"
+date: "4/7/2020"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## OLS Models done by Minh
+Needed in order to inspect the residuals.
+```{r ols models, echo=FALSE}
+library(tidyverse)
+covid19current <- read.csv("covid19march.csv")
+#Ordinary Least Squares (OLS) - retweets and favorites total
+retweets.ols <- lm(retweets ~ length + favorites + ishealth + ispandemic + isvirus + isemergency + isdeaths + iswho + iscdc + isnih + isdisease + isquarantine + isrecover + isban + iscoronavirus + iscovid19 + iswash + isracist + isasian + ischinese + isinfectious + ch.confirmed + it.confirmed + ot.confirmed + us.confirmed + ch.deaths + it.deaths + ot.deaths + us.deaths, data = covid19current)
+summary(retweets.ols)
+
+favorites.ols <- lm(favorites ~ length + retweets + ishealth + ispandemic + isvirus + isemergency + isdeaths + iswho + iscdc + isnih + isdisease + isquarantine + isrecover + isban + iscoronavirus + iscovid19 + iswash + isracist + isasian + ischinese + isinfectious + ch.confirmed + it.confirmed + ot.confirmed + us.confirmed + ch.deaths + it.deaths + ot.deaths + us.deaths, data = covid19current)
+summary(favorites.ols)
+```
+
+## Inspecting Regression Plots
+In the first and third retweets.ols plots we see evidence of possible heteroskedasticity. 
+
+```{r regression plots}
+par(mfrow=c(2,2))
+plot(retweets.ols)
+plot(favorites.ols)
+par(mfrow=c(1,1))
+```
+
+## Heteroskedasticity/BP Test 
+The BP test shows that heteroskedasticity is present in the retweets.ols because the p-value is significant. To correct for this, we must use a WLS model. The BP test also shows tat there is no heteroskedasticity present in the favorites.ols.
+
+```{r bp test}
+library(lmtest)
+bptest(retweets.ols, data=covid19current) 
+bptest(favorites.ols, data=covid19current) 
+```
+
+## WLS Regression to fix Heteroskedasticity 
+The following WLS fixes the problem of heteroskedasticity in the retweets.ols model.
+```{r WLS Regression}
+retweets.abs.res <- lm(abs(residuals(retweets.ols))~fitted(retweets.ols))
+wts <- 1/fitted(retweets.abs.res)^2
+retweets.wls <- lm(retweets ~ length + favorites + ishealth + ispandemic +  isvirus + isemergency + isdeaths + iswho + iscdc + isnih + isdisease + isquarantine + isrecover + isban + iscoronavirus + iscovid19 + iswash + isracist + isasian + ischinese + isinfectious + ch.confirmed + it.confirmed + ot.confirmed + us.confirmed + ch.deaths + it.deaths + ot.deaths + us.deaths, data = covid19current, weights = wts)
+summary(retweets.wls)
+```
+
+## Multicollinearity Test 
+The multicollinearity test shows that the CI for both models is severe. When inspecting the VIFs, we see that the variance for the variables ch.confirmed, it.confirmed, ot.confirmed, us.confirmed, ch.deaths, it.deaths, ot.deaths, and us.deaths are too high. In order to correct for this we will have to consider dropping these variables or trying other approaches.
+
+```{r multicollinearity test}
+library(perturb)
+library(car)
+colldiag(mod=retweets.ols, scale=F, center=F, add.intercept=T)
+vif(retweets.ols)
+
+colldiag(mod=favorites.ols, scale=F, center=F, add.intercept=T)
+vif(favorites.ols)
+```
+

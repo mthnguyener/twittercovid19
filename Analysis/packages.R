@@ -9,6 +9,7 @@ library(keyring)
 library(devtools)
 library(usethis)
 library(twitteR)
+library(countrycode)
 
 # John Hopkins COVID19 DATA:
 # https://github.com/CSSEGISandData/COVID-19
