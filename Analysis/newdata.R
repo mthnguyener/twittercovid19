@@ -8,9 +8,15 @@ apr21 <- searchTwitter('#covid19', n=3000, since='2020-04-21', until='2020-04-22
 apr22 <- searchTwitter('#covid19', n=3000, since='2020-04-22', until='2020-04-23')
 apr23 <- searchTwitter('#covid19', n=3000, since='2020-04-23', until='2020-04-24')
 apr24 <- searchTwitter('#covid19', n=3000, since='2020-04-24', until='2020-04-25')
+apr25 <- searchTwitter('#covid19', n=3000, since='2020-04-25', until='2020-04-26')
+apr26 <- searchTwitter('#covid19', n=3000, since='2020-04-26', until='2020-04-27')
+apr27 <- searchTwitter('#covid19', n=3000, since='2020-04-27', until='2020-04-28')
+apr28 <- searchTwitter('#covid19', n=3000, since='2020-04-28', until='2020-04-29')
+apr29 <- searchTwitter('#covid19', n=3000, since='2020-04-29', until='2020-04-30')
+apr30 <- searchTwitter('#covid19', n=3000, since='2020-04-30', until='2020-05-01')
 
 #Combine Lists
-covid19 <- c(mar30, apr1, apr2, apr3, apr4, apr5, apr6, apr7, apr8, apr9, apr10, apr11, apr12, apr13, apr14, apr15, apr16, apr17, apr18)
+covid19 <- c(apr19, apr20, apr21, apr22, apr23, apr24, apr25, apr26, apr27, apr28, apr29, apr30)
 
 head(covid19)
 
@@ -124,4 +130,4 @@ covid19current %>%
   covid19current
 
 #Save to CSV
-write.csv(covid19current, file = "covid19mar30apr18.csv")
+write.csv(covid19current, file = "covid19apr10apr30.csv")

@@ -1,6 +1,5 @@
 deaths <- read.csv("C:/Users/mthng/OneDrive/Documents/Personal/School/3 Spring 2020/Predictive Analytics (ITEC 621-002)/Project/JHU/COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Deaths.csv")
 
-deaths <- deaths[,-(5:43),drop=FALSE]
 deaths.total <- aggregate(. ~ Country.Region, deaths, sum) %>%
   mutate(Country.Region = as.character(Country.Region)) %>%
   select(-Province.State, -Lat, -Long)
@@ -16,9 +15,11 @@ deaths.total %>%
   bind_rows(summarize_all(., funs(if(is.numeric(.)) sum(.) else "Total"))) ->
   deaths.total
 
+deaths.total %>%
+  pivot_longer(cols = )
+
 confirmed <- read.csv("C:/Users/mthng/OneDrive/Documents/Personal/School/3 Spring 2020/Predictive Analytics (ITEC 621-002)/Project/JHU/COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Confirmed.csv")
 
-confirmed <- confirmed[,-(5:43),drop=FALSE]
 confirmed.total <- aggregate(. ~ Country.Region, confirmed, sum) %>%
   mutate(Country.Region = as.character(Country.Region)) %>%
   select(-Province.State, -Lat, -Long)
@@ -36,7 +37,6 @@ confirmed.total %>%
 
 recovered <- read.csv("C:/Users/mthng/OneDrive/Documents/Personal/School/3 Spring 2020/Predictive Analytics (ITEC 621-002)/Project/JHU/COVID-19/csse_covid_19_data/csse_covid_19_time_series/time_series_19-covid-Recovered.csv")
 
-recovered <- recovered[,-(5:43),drop=FALSE]
 recovered.total <- aggregate(. ~ Country.Region, recovered, sum) %>%
   mutate(Country.Region = as.character(Country.Region)) %>%
   select(-Province.State, -Lat, -Long)
